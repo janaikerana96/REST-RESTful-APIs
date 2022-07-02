@@ -5,11 +5,13 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     @contacts = Contact.all
+    render json: @contacts
   end
 
   # GET /contacts/1
   # GET /contacts/1.json
   def show
+    render json: @contact
   end
 
   # POST /contacts
@@ -18,7 +20,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new(contact_params)
 
     if @contact.save
-      render :show, status: :created, location: @contact
+      render :json, status: :created, location: @contact
     else
       render json: @contact.errors, status: :unprocessable_entity
     end
@@ -28,7 +30,7 @@ class ContactsController < ApplicationController
   # PATCH/PUT /contacts/1.json
   def update
     if @contact.update(contact_params)
-      render :show, status: :ok, location: @contact
+      render :json, status: :ok, location: @contact
     else
       render json: @contact.errors, status: :unprocessable_entity
     end
